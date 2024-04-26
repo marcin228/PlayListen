@@ -1,0 +1,39 @@
+.item{
+
+    width:100%;
+    padding:16px;
+    padding-left:20px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover{
+        background-color: #FFF;
+        color:#000;
+        cursor: pointer;
+    }
+}
+
+.itemActive{
+
+    border-left: 20px solid dodgerblue;
+}
+
+.item__title{
+
+    font-size: 1.5vw;
+}
+
+.playlist{
+
+    color:#FFF;
+}
+
+.details{
+
+    display: block;
+}
+
+.details__item{
+
+    display: inline-block;
+    margin-right: 20px;
+}
