@@ -1,17 +1,7 @@
-/* export type PlaylistItemObject = {
+import Positionable from "./Positionable";
 
-    position:number,
-    title:string,
-    videoId:string,
-    watched:string
-}
+export default class PlaylistItemObject extends Positionable {
 
-*/
-
-export default class PlaylistItemObject{
-
-    public position:number;
-    public title:string;
     public videoId:string;
     public watched:boolean;
 
@@ -21,8 +11,7 @@ export default class PlaylistItemObject{
 
     constructor(position:number, title:string, videoId:string, watched:boolean){
 
-        this.position = position;
-        this.title = title;
+        super(title, position);
         this.videoId = videoId;
         this.watched = watched;
     }

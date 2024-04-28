@@ -3,6 +3,7 @@
 
             title: 'CS playlist',
             id: 0,
+            position:0,
             items: [
             {
                 position:0,
@@ -52,6 +53,7 @@
 
             title: 'short playlist',
             id: 1,
+            position:1,
             items: [
             {
                 position:0,
