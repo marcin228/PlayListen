@@ -35,16 +35,17 @@ const Playlists:React.FC<PlaylistsProps> = ({ children }) => {
 
     if(id){
 
-        const addItem = function(){
+        const addItem = function(playlistId:number){
     
-            const newEntry = new PlaylistItemObject(state.playlists![0].items.length, 'newlyAddedItem', 'H_aVaMbf8Dg', false);
+            const newEntry = new PlaylistItemObject(state.playlists![playlistId].items.length, 'newlyAddedItem', 'H_aVaMbf8Dg', false);
             dispatch(DispatchActionFactory.addPlaylistItem(newEntry, parseInt(id)));
         }
 
-        const removeItem = function(){
+        const removeItem = function(e:MouseEvent){
 
-            const itemPosition:number = 0; //parseInt((e.currentTarget as HTMLElement).dataset['position']!);
-            dispatch(DispatchActionFactory.removePlaylistItem(0, itemPosition));
+            const itemPosition:number = parseInt((e.currentTarget as HTMLElement).dataset['position']!);
+            const itemPlaylistId:number = parseInt((e.currentTarget as HTMLElement).dataset['playlistid']!);
+            dispatch(DispatchActionFactory.removePlaylistItem(itemPlaylistId, itemPosition));
         }
 
         playlist = {

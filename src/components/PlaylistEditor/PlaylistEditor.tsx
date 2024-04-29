@@ -42,11 +42,13 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, children }) =>
     return (
     <>
         
-        { items.map(item => <div key={item.position} className={styles.item}>
-                <div className={styles.itemTitle} {...(((item as PlaylistObject).id !== undefined) && { onClick: onClickTitleHandler })} data-id={(item as PlaylistObject).id}>{item.title}</div>
-                <div className={styles.itemDelete} data-position={item.position} onClick={playlist.removeItem}>DELETE</div>
-                <div className={styles.itemUp}>UP</div>
-                <div className={styles.itemDown}>DOWN</div>
+        { items.map(item => <div key={ item.position } className={ styles.item }>
+                <div className={`${styles.itemTitle} ${((item as PlaylistObject).id !== undefined) ? styles.itemTitleCursor : ''}`}
+                 {...(((item as PlaylistObject).id !== undefined) && { onClick: onClickTitleHandler })} 
+                 data-id={(item as PlaylistObject).id}>{item.title}</div>
+                <div className={ styles.itemDelete } data-position={item.position} data-playlistid={playlist.root?.id} onClick={playlist.removeItem}>DELETE</div>
+                <div className={ styles.itemUp }>UP</div>
+                <div className={ styles.itemDown }>DOWN</div>
             </div>
         ) }
 

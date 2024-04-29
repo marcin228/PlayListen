@@ -20,3 +20,9 @@ html, body{
     font-family: "Teko", sans-serif;
     box-sizing: border-box;
 }
+
+:root{
+
+    --app-color-blue: #00bfff;
+    --app-color-violet: #9400d3;
+}
