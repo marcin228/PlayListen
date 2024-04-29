@@ -2,7 +2,7 @@ import React, { createContext, Dispatch, useReducer } from "react";
 import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist } from "../classes/ActionCreator";
 import State from "../classes/State";
 import PlaylistObject from "../classes/PlaylistObject";
-import Positionable from "../classes/Positionable";
+import PlaylistItemObject from "../classes/PlaylistItemObject";
 
 export type GlobalContextType = {
 
@@ -44,7 +44,7 @@ function reducer(state:State, action:DispatchAction):State{
         const playlists = structuredClone(state.playlists) as PlaylistObject[];
 
         playlists![payload.itemPlaylistId].items.splice(payload.itemPlaylistPosition, 1);
-        playlists![payload.itemPlaylistId].items = playlists![payload.itemPlaylistId].items.map((item:Positionable, index:number) => {
+        playlists![payload.itemPlaylistId].items = playlists![payload.itemPlaylistId].items.map((item:PlaylistItemObject, index:number) => {
             item.position = index;
             return item;
         });
