@@ -37,7 +37,24 @@ export type DispatchActionRemovePlaylistItem = {
     }
 }
 
-export type DispatchAction = DispatchActionChangeVideo | DispatchActionChangePlaylist | DispatchActionAddPlaylistItem | DispatchActionRemovePlaylistItem;
+export type DispatchActionAddPlaylist = {
+
+    type: 'addPlaylist',
+    payload: {
+        playlistTitle:string,
+        playlistPosition:number
+    }
+}
+
+export type DispatchActionRemovePlaylist = {
+
+    type: 'removePlaylist',
+    payload: {
+        playlistId:number
+    }
+}
+
+export type DispatchAction = DispatchActionChangeVideo | DispatchActionChangePlaylist | DispatchActionAddPlaylistItem | DispatchActionRemovePlaylistItem | DispatchActionAddPlaylist | DispatchActionRemovePlaylist;
 
 export default class DispatchActionFactory{
 
@@ -84,5 +101,17 @@ export default class DispatchActionFactory{
                 itemPlaylistPosition: itemPlaylistPosition,
             }
         } as DispatchActionRemovePlaylistItem
+    }
+
+    static addPlaylist(title:string, playlistPosition:number):DispatchActionAddPlaylist{
+
+        return {
+
+            type: 'addPlaylist',
+            payload: {
+                playlistTitle:title,
+                playlistPosition: playlistPosition
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { PlaylistObject } from "../components/Playlist/Playlist"
+import PlaylistObject from "./PlaylistObject"
 import PlayerSettings from "./PlayerSettings"
 import LocalStorageUtility from "../utils/LocalStorageUtility"
 

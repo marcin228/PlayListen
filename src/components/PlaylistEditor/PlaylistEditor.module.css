@@ -10,7 +10,8 @@
 
     &:hover{
 
-        background-color: #111;
+        background-color: #FFF;
+        color:#000;
     }
 }
 

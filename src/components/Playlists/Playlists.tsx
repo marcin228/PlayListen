@@ -1,12 +1,26 @@
 import React from "react"
-// import styles from "../Playlists/Playlists.module.css";
 import PlaylistEditor from "../PlaylistEditor/PlaylistEditor.tsx";
 import { useGlobalContext } from "../../hooks/useGlobalContext.tsx";
 import Positionable from "../../classes/Positionable.ts";
-import PlaylistItemObject from "../../classes/PlaylistItemObject.ts";
 import DispatchActionFactory from "../../classes/ActionCreator.ts";
 import { useParams } from "react-router-dom";
 import PlaylistObject from "../../classes/PlaylistObject.ts";
+import PlaylistItemObject from "../../classes/PlaylistItemObject.ts";
+
+export type AddedPlaylist = {
+
+    type: 'playlist',
+    title: string
+}
+
+export type AddedPlaylistItem = {
+
+    type: 'playlistItem',
+    item: PlaylistItemObject,
+    playlistId: number
+}
+
+export type AddedItem = AddedPlaylist | AddedPlaylistItem;
 
 type PlaylistsProps = {
 
@@ -17,17 +31,11 @@ export type PlaylistEditable = {
 
     root:PlaylistObject | null,
     items:Array<Positionable>,
-    addItem():void,
-    removeItem():void
+    addItem(item:AddedItem):void,
+    removeItem(e?:React.MouseEvent):void
 };
 
 const Playlists:React.FC<PlaylistsProps> = ({ children }) => {
-
-/*     function onChangeCurrentPlaylistHandler(e:React.ChangeEvent){
-    
-        const newlySelected = (e.currentTarget as HTMLSelectElement).value;
-        setCurrentPlaylistId(parseInt(newlySelected));
-    } */
 
     const { state, dispatch } = useGlobalContext();
     const { id } = useParams();
@@ -35,17 +43,16 @@ const Playlists:React.FC<PlaylistsProps> = ({ children }) => {
 
     if(id){
 
-        const addItem = function(playlistId:number){
-    
-            const newEntry = new PlaylistItemObject(state.playlists![playlistId].items.length, 'newlyAddedItem', 'H_aVaMbf8Dg', false);
-            dispatch(DispatchActionFactory.addPlaylistItem(newEntry, parseInt(id)));
+        const addItem = function(item:AddedPlaylistItem){
+                
+            dispatch(DispatchActionFactory.addPlaylistItem(item.item, parseInt(id)));
         }
 
-        const removeItem = function(e:MouseEvent){
+        const removeItem = function(){
 
-            const itemPosition:number = parseInt((e.currentTarget as HTMLElement).dataset['position']!);
-            const itemPlaylistId:number = parseInt((e.currentTarget as HTMLElement).dataset['playlistid']!);
-            dispatch(DispatchActionFactory.removePlaylistItem(itemPlaylistId, itemPosition));
+            //const itemPosition:number = parseInt((e.currentTarget as HTMLElement).dataset['position']!);
+            //const itemPlaylistId:number = parseInt((e.currentTarget as HTMLElement).dataset['playlistid']!);
+            //dispatch(DispatchActionFactory.removePlaylistItem(itemPlaylistId, itemPosition));
         }
 
         playlist = {
@@ -58,10 +65,10 @@ const Playlists:React.FC<PlaylistsProps> = ({ children }) => {
     }
     else{
 
-        const addItem = function(){
+        const addItem = function(item:AddedPlaylist){
     
             //const newEntry = new PlaylistItemObject(state.playlists![0].items.length, 'newlyAddedItem', 'H_aVaMbf8Dg', false);
-            //dispatch(DispatchActionFactory.addPlaylistItem(newEntry, parseInt(id)));
+            dispatch(DispatchActionFactory.addPlaylist(item.title, state.playlists!.length));
         }
 
         const removeItem = function(){
@@ -81,13 +88,7 @@ const Playlists:React.FC<PlaylistsProps> = ({ children }) => {
 
     return (
     <>
-        {/* <select name="playlists" id="playlists" className={styles.select} onChange={onChangeCurrentPlaylistHandler}>
-            {
-                (state.playlists as Array<Positionable>).map((item, index) => <option key={index} value={item.id}>{item.title}</option>)
-            }
-        </select> */}
-
-        <PlaylistEditor playlist={playlist!} />
+        <PlaylistEditor playlist={playlist!} playlistId={id} />
         { children }
     </>
     );

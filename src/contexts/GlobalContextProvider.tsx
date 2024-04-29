@@ -1,6 +1,8 @@
 import React, { createContext, Dispatch, useReducer } from "react";
-import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo } from "../classes/ActionCreator";
+import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist } from "../classes/ActionCreator";
 import State from "../classes/State";
+import PlaylistObject from "../classes/PlaylistObject";
+import Positionable from "../classes/Positionable";
 
 export type GlobalContextType = {
 
@@ -39,16 +41,31 @@ function reducer(state:State, action:DispatchAction):State{
     else if(action.type == 'removePlaylistItem'){
     
         const { payload } = action as DispatchActionRemovePlaylistItem;
-
-        const playlists = structuredClone(state.playlists);
+        const playlists = structuredClone(state.playlists) as PlaylistObject[];
 
         playlists![payload.itemPlaylistId].items.splice(payload.itemPlaylistPosition, 1);
-        playlists![payload.itemPlaylistId].items = playlists![payload.itemPlaylistId].items.map((item, index) => {
+        playlists![payload.itemPlaylistId].items = playlists![payload.itemPlaylistId].items.map((item:Positionable, index:number) => {
             item.position = index;
             return item;
         });
 
         return {...state, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![payload.itemPlaylistId].items[0].videoId, playlists};
+    }
+    else if(action.type == 'addPlaylist'){
+
+        const { payload } = action as DispatchActionAddPlaylist;
+        const playlists = structuredClone(state.playlists);
+
+        playlists![payload.playlistPosition] = new PlaylistObject(payload.playlistPosition, payload.playlistTitle, ''+payload.playlistPosition, []);
+
+        return { ...state, playlists};
+    }
+    else if(action.type == 'removePlaylist'){
+
+        //const { payload } = action as DispatchActionAddPlaylist;
+        //const playlists = structuredClone(state.playlists);
+
+        //return {...state, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![payload.itemPlaylistId].items[0].videoId, playlists};
     }
 
     return state;

@@ -4,14 +4,16 @@ import Positionable from "../../classes/Positionable";
 import { PlaylistEditable } from "../Playlists/Playlists";
 import { useNavigate } from "react-router-dom";
 import PlaylistObject from "../../classes/PlaylistObject";
+import PlaylistAdder from "../PlaylistAdder/PlaylistAdder";
 
 type PlaylistEditorProps = {
 
     playlist:PlaylistEditable,
+    playlistId:string | undefined,
     children?:React.ReactNode,
 }
 
-const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, children }) => {
+const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, children }) => {
 
     const items:Array<Positionable> = playlist.items;
     const navigate = useNavigate();
@@ -22,12 +24,6 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, children }) =>
     }
 
     /* const { state, dispatch } = useGlobalContext();
-
-    const newEntryTitle = useRef<HTMLInputElement>(null);
-    const newEntryVideoId = useRef<HTMLInputElement>(null); */
-
-    
-
 
 /*     <div className={`${styles.item} ${styles.edit}`}>
                 <div className={styles.itemTitle}>
@@ -41,7 +37,6 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, children }) =>
 
     return (
     <>
-        
         { items.map(item => <div key={ item.position } className={ styles.item }>
                 <div className={`${styles.itemTitle} ${((item as PlaylistObject).id !== undefined) ? styles.itemTitleCursor : ''}`}
                  {...(((item as PlaylistObject).id !== undefined) && { onClick: onClickTitleHandler })} 
@@ -51,6 +46,7 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, children }) =>
                 <div className={ styles.itemDown }>DOWN</div>
             </div>
         ) }
+        <PlaylistAdder playlist={playlist} playlistId={playlistId}>+</PlaylistAdder>
 
         { children }
     </>
