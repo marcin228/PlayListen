@@ -22,22 +22,13 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
 
         navigate(''+(e.currentTarget as HTMLElement).dataset['id']!);
     }
-
-    /* const { state, dispatch } = useGlobalContext();
-
-/*     <div className={`${styles.item} ${styles.edit}`}>
-                <div className={styles.itemTitle}>
-                    <input ref={newEntryTitle} id="entryTitle" type="text" name="title" placeholder="playlist entry title" className={`${styles.inputText} ${styles.inputTextTitle}`} />
-                    <input ref={newEntryVideoId} id="entryVideoId" type="text" name="video" placeholder="video id" className={`${styles.inputText} ${styles.inputTextVideo}`} />
-                </div>
-                <div className={styles.itemAdd} onClick={onClickAddHandler}>ADD</div>
-                <div className={styles.itemUp}></div>
-                <div className={styles.itemDown}></div>
-        </div> */
+    
+    if(!Array.isArray(items))
+        return (<></>);
 
     return (
     <>
-        { items.map(item => <div key={ item.position } className={ styles.item }>
+        { items && items.map(item => <div key={ item.position } className={ styles.item }>
                 <div className={`${styles.itemTitle} ${((item as PlaylistObject).id !== undefined) ? styles.itemTitleCursor : ''}`}
                  {...(((item as PlaylistObject).id !== undefined) && { onClick: onClickTitleHandler })} 
                  data-id={(item as PlaylistObject).id}>{item.title}</div>
@@ -46,7 +37,7 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
                 <div className={ styles.itemDown }>DOWN</div>
             </div>
         ) }
-        <PlaylistAdder playlist={playlist} playlistId={playlistId}>+</PlaylistAdder>
+        <PlaylistAdder playlist={playlist} playlistId={playlistId}></PlaylistAdder>
 
         { children }
     </>

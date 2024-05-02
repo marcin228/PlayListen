@@ -112,6 +112,17 @@ export default class DispatchActionFactory{
                 playlistTitle:title,
                 playlistPosition: playlistPosition
             }
-        }
+        } as DispatchActionAddPlaylist
+    }
+
+    static removePlaylist(playlistId:number):DispatchActionRemovePlaylist{
+
+        return {
+
+            type: 'removePlaylist',
+            payload: {
+                playlistId: playlistId
+            }
+        } as DispatchActionRemovePlaylist
     }
 }

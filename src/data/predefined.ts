@@ -1,5 +1,6 @@
+import LocalStorageUtility from "../utils/LocalStorageUtility";
 
-            /* const list = {
+            const list = {
 
             title: 'CS playlist',
             id: 0,
@@ -47,9 +48,9 @@
                 videoId: 'tMj681M8mFo',
                 watched: '0'
             }
-        ]}; */
+        ]};
 
-        /* const list2 = {
+        const list2 = {
 
             title: 'short playlist',
             id: 1,
@@ -67,6 +68,7 @@
                 videoId: 'iLyBEEkm5e0',
                 watched: '0'
             },
-        ]}; */
+        ]};
 
-        //const arr = [list, list2];
+        const arr = {0: list, 1:list2};
+        LocalStorageUtility.writeJSONStringified('playlists', arr);

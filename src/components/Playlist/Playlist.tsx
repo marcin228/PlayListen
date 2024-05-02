@@ -20,7 +20,17 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
 
     function getPlaylistItems(){
         
-        const list = state.playlists![state.currentPlaylistId].items;
+        let list;
+        try{
+            list = state?.playlists![state?.currentPlaylistId].items;
+        }
+        catch(e){
+
+            console.log('no playlist objects');
+        }
+        
+        if(!list)
+            return <></>;
 
         function setPlaylistItemStyle(position:number):string{
         

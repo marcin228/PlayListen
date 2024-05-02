@@ -16,7 +16,7 @@ html, body{
     color:#fff;
 }
 
-*{
+*, input{
     font-family: "Teko", sans-serif;
     box-sizing: border-box;
 }

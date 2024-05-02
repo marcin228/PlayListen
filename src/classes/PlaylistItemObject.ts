@@ -6,6 +6,7 @@ export default class PlaylistItemObject extends Positionable {
     public watched:boolean;
 
     static fromObject(object:PlaylistItemObject):PlaylistItemObject {
+    
         return new this(object.position, object.title, object.videoId, object.watched);
     }
 

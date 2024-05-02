@@ -1,5 +1,5 @@
 import React, { createContext, Dispatch, useReducer } from "react";
-import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist } from "../classes/ActionCreator";
+import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist, DispatchActionRemovePlaylist } from "../classes/ActionCreator";
 import State from "../classes/State";
 import PlaylistObject from "../classes/PlaylistObject";
 import PlaylistItemObject from "../classes/PlaylistItemObject";
@@ -49,7 +49,10 @@ function reducer(state:State, action:DispatchAction):State{
             return item;
         });
 
-        return {...state, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![payload.itemPlaylistId].items[0].videoId, playlists};
+        if(playlists![payload.itemPlaylistId].items.length === 0)
+            return {...state, currentVideoPlaylistPosition:0, currentVideoYTId: '', playlists};
+
+        return {...state, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![payload.itemPlaylistId].items[0].videoId, playlists }
     }
     else if(action.type == 'addPlaylist'){
 
@@ -62,10 +65,17 @@ function reducer(state:State, action:DispatchAction):State{
     }
     else if(action.type == 'removePlaylist'){
 
-        //const { payload } = action as DispatchActionAddPlaylist;
-        //const playlists = structuredClone(state.playlists);
+        const { payload } = action as DispatchActionRemovePlaylist;
+        let playlists = structuredClone(state.playlists);
+        playlists!.splice(payload.playlistId, 1);
 
-        //return {...state, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![payload.itemPlaylistId].items[0].videoId, playlists};
+        playlists = playlists!.map((item:PlaylistObject, index:number) => {
+            item.position = index;
+            item.id = ''+index;
+            return item;
+        });
+
+        return {...state, currentPlaylistId: 0, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![0].items[0].videoId, playlists};
     }
 
     return state;

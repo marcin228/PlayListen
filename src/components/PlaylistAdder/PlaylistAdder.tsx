@@ -8,7 +8,7 @@ type PlaylistAdderProps = {
 
     playlist:PlaylistEditable,
     playlistId:string | undefined,
-    children:React.ReactNode,
+    children?:React.ReactNode,
 }
 
 const PlaylistAdder:React.FC<PlaylistAdderProps> = ({ playlist, playlistId, children }) => {
@@ -18,7 +18,7 @@ const PlaylistAdder:React.FC<PlaylistAdderProps> = ({ playlist, playlistId, chil
     const newPlaylistItemVideoId = useRef<HTMLInputElement>(null);
     const { state } = useGlobalContext();
 
-    function onClickAddHandler(){ //e:React.MouseEvent){
+    function onClickAddHandler(){
     
         if(playlistId){
 
@@ -28,31 +28,27 @@ const PlaylistAdder:React.FC<PlaylistAdderProps> = ({ playlist, playlistId, chil
 
             playlist.addItem({ type: 'playlist', title: newPlaylistTitle.current!.value});
         }
-
-        console.log('ADDING!')
     }
-
-    //const { state, dispatch } = useGlobalContext;
 
     return (
     <>
         {!playlistId && <div className={styles.playlistItemAdder}>
-            <div className={styles.itemTitle} onClick={onClickAddHandler}>[ + ] ADD</div>
-            <div className={styles.itemTitle}>Play</div>
             <div className={styles.itemTitle}>
-                <input type="text" ref={newPlaylistTitle}></input>
+                <input type="text" ref={newPlaylistTitle} placeholder="new playlist name"></input>
             </div>
-            <div className={styles.itemTitle}>[ + ] ADD</div>
+            <div className={styles.itemAdd} onClick={onClickAddHandler}>ADD</div>
+            <div className={styles.itemEmpty} />
+            <div className={styles.itemEmpty} />
         </div>}
 
         {playlistId && <div className={styles.playlistItemAdder}>
-            <div className={styles.itemTitle} onClick={onClickAddHandler}>[ + ] ADD</div>
-            <div className={styles.itemTitle}>Play</div>
             <div className={styles.itemTitle}>
-                <input type="text" ref={newPlaylistItemTitle} placeholder="title"></input>
-                <input type="text" ref={newPlaylistItemVideoId} placeholder="vid id"></input>
+                <input type="text" ref={newPlaylistItemTitle} placeholder="playlist entry title"></input>
+                <input type="text" ref={newPlaylistItemVideoId} placeholder="youtube video id"></input>
             </div>
-            <div className={styles.itemTitle}>[ + ] ADD</div>
+            <div className={styles.itemAdd} onClick={onClickAddHandler}>ADD</div>
+            <div className={styles.itemEmpty} />
+            <div className={styles.itemEmpty} />
         </div>}
 
         { children }

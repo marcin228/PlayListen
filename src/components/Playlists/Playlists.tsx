@@ -48,11 +48,11 @@ const Playlists:React.FC<PlaylistsProps> = ({ children }) => {
             dispatch(DispatchActionFactory.addPlaylistItem(item.item, parseInt(id)));
         }
 
-        const removeItem = function(){
+        const removeItem = function(e?:React.MouseEvent){
 
-            //const itemPosition:number = parseInt((e.currentTarget as HTMLElement).dataset['position']!);
-            //const itemPlaylistId:number = parseInt((e.currentTarget as HTMLElement).dataset['playlistid']!);
-            //dispatch(DispatchActionFactory.removePlaylistItem(itemPlaylistId, itemPosition));
+            const itemPosition:number = parseInt((e!.currentTarget as HTMLElement).dataset['position']!);
+            const itemPlaylistId:number = parseInt(id);
+            dispatch(DispatchActionFactory.removePlaylistItem(itemPlaylistId, itemPosition));
         }
 
         playlist = {
@@ -67,14 +67,13 @@ const Playlists:React.FC<PlaylistsProps> = ({ children }) => {
 
         const addItem = function(item:AddedPlaylist){
     
-            //const newEntry = new PlaylistItemObject(state.playlists![0].items.length, 'newlyAddedItem', 'H_aVaMbf8Dg', false);
             dispatch(DispatchActionFactory.addPlaylist(item.title, state.playlists!.length));
         }
 
-        const removeItem = function(){
+        const removeItem = function(e:React.MouseEvent){
 
-            //const itemPosition:number = 0; //parseInt((e.currentTarget as HTMLElement).dataset['position']!);
-            //dispatch(DispatchActionFactory.removePlaylistItem(0, itemPosition));
+            const itemPosition:number = parseInt((e.currentTarget as HTMLElement).dataset['position']!);
+            dispatch(DispatchActionFactory.removePlaylist(itemPosition));
         }
 
         playlist = {

@@ -1,11 +1,47 @@
-.playlistItemAdder{
+.playlistItemAdder {
 
-    background-color: transparent;
-    transition: background-color 0.3 ease-out;
-    padding:12px;
-    
+    font-size: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    transition: all 0.3s ease-out;
+    padding: 12px;
+    align-items: center;
+
+    &:hover {
+
+        background-color:white;
+        color: #000;
+    }
+}
+
+.itemTitle {
+
+    flex: 5;
+}
+
+.itemAdd {
+
     &:hover{
     
-        background-color: greenyellow;
+        color:greenyellow;
+        cursor: pointer;
     }
+
+    flex: 1;
+}
+
+.itemEmpty {
+
+    flex: 1;
+}
+
+input {
+
+    background-color: #000;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    font-size: 2rem;
+    margin-right:24px;
 }
