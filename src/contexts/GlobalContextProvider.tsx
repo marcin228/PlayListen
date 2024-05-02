@@ -3,6 +3,7 @@ import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlay
 import State from "../classes/State";
 import PlaylistObject from "../classes/PlaylistObject";
 import PlaylistItemObject from "../classes/PlaylistItemObject";
+import LocalStorageUtility from "../utils/LocalStorageUtility";
 
 export type GlobalContextType = {
 
@@ -36,7 +37,10 @@ function reducer(state:State, action:DispatchAction):State{
         const playlists = structuredClone(state.playlists);
         playlists![payload.playlistId].items.push(payload.item);
 
-        return {...state, playlists};
+        const newState:State = {...state, playlists}; 
+        LocalStorageUtility.writeJSONStringified('playlists', newState.playlists!);
+
+        return newState;
     }
     else if(action.type == 'removePlaylistItem'){
     
@@ -52,7 +56,10 @@ function reducer(state:State, action:DispatchAction):State{
         if(playlists![payload.itemPlaylistId].items.length === 0)
             return {...state, currentVideoPlaylistPosition:0, currentVideoYTId: '', playlists};
 
-        return {...state, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![payload.itemPlaylistId].items[0].videoId, playlists }
+        const newState:State = {...state, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![payload.itemPlaylistId].items[0].videoId, playlists };
+        LocalStorageUtility.writeJSONStringified('playlists', newState.playlists!);
+
+        return newState;
     }
     else if(action.type == 'addPlaylist'){
 
@@ -61,7 +68,10 @@ function reducer(state:State, action:DispatchAction):State{
 
         playlists![payload.playlistPosition] = new PlaylistObject(payload.playlistPosition, payload.playlistTitle, ''+payload.playlistPosition, []);
 
-        return { ...state, playlists};
+        const newState = { ...state, playlists};
+        LocalStorageUtility.writeJSONStringified('playlists', newState.playlists!);
+
+        return newState;
     }
     else if(action.type == 'removePlaylist'){
 
@@ -75,7 +85,10 @@ function reducer(state:State, action:DispatchAction):State{
             return item;
         });
 
-        return {...state, currentPlaylistId: 0, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![0].items[0].videoId, playlists};
+        const newState = {...state, currentPlaylistId: 0, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![0].items[0].videoId, playlists};
+        LocalStorageUtility.writeJSONStringified('playlists', newState.playlists!);
+
+        return newState;
     }
 
     return state;
