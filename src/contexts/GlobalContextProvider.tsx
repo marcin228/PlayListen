@@ -1,5 +1,5 @@
 import React, { createContext, Dispatch, useReducer } from "react";
-import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist, DispatchActionRemovePlaylist } from "../classes/ActionCreator";
+import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist, DispatchActionRemovePlaylist, DispatchActionMoveItemUp, DispatchActionMoveItemDown } from "../classes/ActionCreator";
 import State from "../classes/State";
 import PlaylistObject from "../classes/PlaylistObject";
 import PlaylistItemObject from "../classes/PlaylistItemObject";
@@ -29,6 +29,31 @@ function reducer(state:State, action:DispatchAction):State{
         const { payload } = action as DispatchActionChangePlaylist;
         
         return { ...state, currentVideoPlaylistPosition:0, currentVideoYTId: state.playlists![payload].items[0].videoId ,currentPlaylistId: payload};
+    }
+    else if(action.type == 'moveItemUp'){
+    
+        const { payload } = action as DispatchActionMoveItemUp;
+
+        const playlists = structuredClone(state.playlists);
+
+        playlists![payload.playlistId].items[payload.itemPosition].position -= 1.1;
+        playlists![payload.playlistId].items.sort((a,b) => a.position - b.position);
+        playlists![payload.playlistId].items = playlists![payload.playlistId].items.map((item, index) => {
+        item.position = index; return item; });
+
+        return {...state, playlists};
+    }
+    else if(action.type == 'moveItemDown'){
+    
+        const { payload } = action as DispatchActionMoveItemDown;
+        const playlists = structuredClone(state.playlists);
+
+        playlists![payload.playlistId].items[payload.itemPosition].position += 1.1;
+        playlists![payload.playlistId].items.sort((a,b) => a.position - b.position);
+        playlists![payload.playlistId].items = playlists![payload.playlistId].items.map((item, index) => {
+        item.position = index; return item; });
+
+        return {...state, playlists};
     }
     else if(action.type == 'addPlaylistItem'){
 

@@ -19,6 +19,24 @@ export type DispatchActionChangePlaylist = {
     payload:number
 }
 
+export type DispatchActionMoveItemUp = {
+
+    type: 'moveItemUp',
+    payload: {
+        itemPosition:number,
+        playlistId:number
+    }
+}
+
+export type DispatchActionMoveItemDown = {
+
+    type: 'moveItemDown',
+    payload: {
+        itemPosition:number,
+        playlistId:number
+    }
+}
+
 export type DispatchActionAddPlaylistItem = {
 
     type: 'addPlaylistItem',
@@ -54,7 +72,7 @@ export type DispatchActionRemovePlaylist = {
     }
 }
 
-export type DispatchAction = DispatchActionChangeVideo | DispatchActionChangePlaylist | DispatchActionAddPlaylistItem | DispatchActionRemovePlaylistItem | DispatchActionAddPlaylist | DispatchActionRemovePlaylist;
+export type DispatchAction = DispatchActionChangeVideo | DispatchActionChangePlaylist | DispatchActionMoveItemUp | DispatchActionMoveItemDown | DispatchActionAddPlaylistItem | DispatchActionRemovePlaylistItem | DispatchActionAddPlaylist | DispatchActionRemovePlaylist;
 
 export default class DispatchActionFactory{
 
@@ -77,6 +95,30 @@ export default class DispatchActionFactory{
             type: 'changePlaylist',
             payload: playlistId
         } as DispatchActionChangePlaylist;
+    }
+
+    static moveItemUp(itemPosition:number, playlistId:number){
+    
+        return {
+
+            type: 'moveItemUp',
+            payload: {
+                itemPosition:itemPosition,
+                playlistId:playlistId
+            }
+        } as DispatchActionMoveItemUp
+    }
+
+    static moveItemDown(itemPosition:number, playlistId:number){
+    
+        return {
+
+            type: 'moveItemDown',
+            payload: {
+                itemPosition:itemPosition,
+                playlistId:playlistId
+            }
+        } as DispatchActionMoveItemDown
     }
 
     static addPlaylistItem(item:PlaylistItemObject, playlistId:number):DispatchActionAddPlaylistItem{
