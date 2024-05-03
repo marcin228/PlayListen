@@ -24,9 +24,14 @@ const PlaylistAdder:React.FC<PlaylistAdderProps> = ({ playlist, playlistId, chil
 
             const newItem:PlaylistItemObject = new PlaylistItemObject(state.playlists![parseInt(playlistId)].items.length,newPlaylistItemTitle.current!.value, newPlaylistItemVideoId.current!.value, false);
             playlist.addItem({ type: 'playlistItem', item: newItem, playlistId: parseInt(playlistId)});
+
+            newPlaylistItemTitle.current!.value = '';
+            newPlaylistItemVideoId.current!.value = '';
+
         }else{
 
             playlist.addItem({ type: 'playlist', title: newPlaylistTitle.current!.value});
+            newPlaylistTitle.current!.value = '';
         }
     }
 

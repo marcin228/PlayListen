@@ -1,3 +1,11 @@
+.playlists{
+
+    position: relative;
+    background-color: #000;
+    max-height: calc(100vh - 128px);
+    overflow-y: scroll;
+}
+
 .item{
 
     font-size:2rem;

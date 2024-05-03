@@ -27,7 +27,10 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
         return (<></>);
 
     return (
-    <>
+    <div className={styles.playlists}>
+    
+        <PlaylistAdder playlist={playlist} playlistId={playlistId}></PlaylistAdder>
+
         { items && items.map(item => <div key={ item.position } className={ styles.item }>
                 <div className={`${styles.itemTitle} ${((item as PlaylistObject).id !== undefined) ? styles.itemTitleCursor : ''}`}
                  {...(((item as PlaylistObject).id !== undefined) && { onClick: onClickTitleHandler })} 
@@ -37,10 +40,9 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
                 <div className={ styles.itemDown }>DOWN</div>
             </div>
         ) }
-        <PlaylistAdder playlist={playlist} playlistId={playlistId}></PlaylistAdder>
 
         { children }
-    </>
+    </div>
     );
 };
 
