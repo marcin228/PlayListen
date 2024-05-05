@@ -1,6 +1,7 @@
 /** @todo change payload to always be an object for consistency and predictability */
 
 import PlaylistItemObject from "./PlaylistItemObject";
+import PlaylistObject from "./PlaylistObject";
 
 export type DispatchActionType = 'changeVideo' | 'changePlaylist' | 'addPlaylistItem';
 
@@ -64,6 +65,15 @@ export type DispatchActionAddPlaylist = {
     }
 }
 
+export type DispatchActionAddPlaylistFromLink = {
+
+    type: 'addPlaylistFromLink',
+    payload: {
+        playlist:PlaylistObject,
+        playlistPosition:number
+    }
+}
+
 export type DispatchActionRemovePlaylist = {
 
     type: 'removePlaylist',
@@ -72,7 +82,7 @@ export type DispatchActionRemovePlaylist = {
     }
 }
 
-export type DispatchAction = DispatchActionChangeVideo | DispatchActionChangePlaylist | DispatchActionMoveItemUp | DispatchActionMoveItemDown | DispatchActionAddPlaylistItem | DispatchActionRemovePlaylistItem | DispatchActionAddPlaylist | DispatchActionRemovePlaylist;
+export type DispatchAction = DispatchActionChangeVideo | DispatchActionChangePlaylist | DispatchActionMoveItemUp | DispatchActionMoveItemDown | DispatchActionAddPlaylistItem | DispatchActionRemovePlaylistItem | DispatchActionAddPlaylist | DispatchActionAddPlaylistFromLink | DispatchActionRemovePlaylist;
 
 export default class DispatchActionFactory{
 
@@ -155,6 +165,18 @@ export default class DispatchActionFactory{
                 playlistPosition: playlistPosition
             }
         } as DispatchActionAddPlaylist
+    }
+
+    static addPlaylistFromLink(playlist:PlaylistObject, playlistPosition:number){
+    
+        return {
+
+            type: 'addPlaylistFromLink',
+            payload: {
+                playlist: playlist,
+                playlistPosition: playlistPosition
+            }
+        } as DispatchActionAddPlaylistFromLink
     }
 
     static removePlaylist(playlistId:number):DispatchActionRemovePlaylist{

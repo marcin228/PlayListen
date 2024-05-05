@@ -1,5 +1,5 @@
 import React, { createContext, Dispatch, useReducer } from "react";
-import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist, DispatchActionRemovePlaylist, DispatchActionMoveItemUp, DispatchActionMoveItemDown } from "../classes/ActionCreator";
+import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist, DispatchActionRemovePlaylist, DispatchActionMoveItemUp, DispatchActionMoveItemDown, DispatchActionAddPlaylistFromLink } from "../classes/DispatchActionFactory";
 import State from "../classes/State";
 import PlaylistObject from "../classes/PlaylistObject";
 import PlaylistItemObject from "../classes/PlaylistItemObject";
@@ -93,7 +93,19 @@ function reducer(state:State, action:DispatchAction):State{
 
         playlists![payload.playlistPosition] = new PlaylistObject(payload.playlistPosition, payload.playlistTitle, ''+payload.playlistPosition, []);
 
-        const newState = { ...state, playlists};
+        const newState:State = { ...state, playlists};
+        LocalStorageUtility.writeJSONStringified('playlists', newState.playlists!);
+
+        return newState;
+    }
+    else if(action.type == 'addPlaylistFromLink'){
+
+        const { payload } = action as DispatchActionAddPlaylistFromLink;
+        const playlists = structuredClone(state.playlists);
+
+        playlists![payload.playlistPosition] = payload.playlist;
+        
+        const newState:State = { ...state, playlists};
         LocalStorageUtility.writeJSONStringified('playlists', newState.playlists!);
 
         return newState;
@@ -110,7 +122,7 @@ function reducer(state:State, action:DispatchAction):State{
             return item;
         });
 
-        const newState = {...state, currentPlaylistId: 0, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![0].items[0].videoId, playlists};
+        const newState:State = {...state, currentPlaylistId: 0, currentVideoPlaylistPosition:0, currentVideoYTId: playlists![0].items[0].videoId, playlists:playlists};
         LocalStorageUtility.writeJSONStringified('playlists', newState.playlists!);
 
         return newState;

@@ -2,7 +2,7 @@ import React from "react"
 import PlaylistEditor from "../PlaylistEditor/PlaylistEditor.tsx";
 import { useGlobalContext } from "../../hooks/useGlobalContext.tsx";
 import Positionable from "../../classes/Positionable.ts";
-import DispatchActionFactory from "../../classes/ActionCreator.ts";
+import DispatchActionFactory from "../../classes/DispatchActionFactory.ts";
 import { useParams } from "react-router-dom";
 import PlaylistObject from "../../classes/PlaylistObject.ts";
 import PlaylistItemObject from "../../classes/PlaylistItemObject.ts";
@@ -44,7 +44,7 @@ const Playlists:React.FC<PlaylistsProps> = ({ children }) => {
     if(id){
 
         const addItem = function(item:AddedPlaylistItem){
-                
+
             dispatch(DispatchActionFactory.addPlaylistItem(item.item, parseInt(id)));
         }
 

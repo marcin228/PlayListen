@@ -5,7 +5,7 @@ import { PlaylistEditable } from "../Playlists/Playlists";
 import { useNavigate } from "react-router-dom";
 import PlaylistObject from "../../classes/PlaylistObject";
 import PlaylistAdder from "../PlaylistAdder/PlaylistAdder";
-import DispatchActionFactory from "../../classes/ActionCreator";
+import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 
 type PlaylistEditorProps = {
@@ -30,16 +30,10 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
 
         const htmlData:DOMStringMap = (e.currentTarget as HTMLElement).dataset;
 
-        console.log(htmlData)
-
-        if(htmlData.direction === 'up'){
-
+        if(htmlData.direction === 'up')
             dispatch(DispatchActionFactory.moveItemUp(parseInt(htmlData.position!), parseInt(htmlData.playlistid!)));
-        }
-        else{
-
+        else
             dispatch(DispatchActionFactory.moveItemDown(parseInt(htmlData.position!), parseInt(htmlData.playlistid!)));
-        }
     }
     
     if(!Array.isArray(items))
@@ -53,7 +47,7 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
         { items && items.map(item => <div key={ item.position } className={ styles.item }>
                 <div className={`${styles.itemTitle} ${((item as PlaylistObject).id !== undefined) ? styles.itemTitleCursor : ''}`}
                  {...(((item as PlaylistObject).id !== undefined) && { onClick: onClickTitleHandler })} 
-                 data-id={(item as PlaylistObject).id}>{item.title}</div>
+                 data-id={(item as PlaylistObject).id}>{(item as PlaylistObject).id} {item.title}</div>
                 
                 <div className={ styles.itemDelete } data-position={item.position} data-playlistid={playlist.root?.id} onClick={playlist.removeItem}>DELETE</div>
                 

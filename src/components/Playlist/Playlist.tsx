@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 import styles from "./Playlist.module.css"
-import DispatchActionFactory from "../../classes/ActionCreator";
+import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import PlaylistItemObject from "../../classes/PlaylistItemObject";
+import { useLocation } from "react-router-dom";
+import PlaylistObject from "../../classes/PlaylistObject";
 
 type PlaylistProps = {
 
@@ -12,23 +14,49 @@ type PlaylistProps = {
 const Playlist:React.FC<PlaylistProps> = ({ children }) => {
 
     const { state, dispatch } = useGlobalContext();
+    const location = useLocation();
 
     function onPlaylistItemClickHandler(e:React.MouseEvent){
 
         dispatch(DispatchActionFactory.changeVideo((e.currentTarget as HTMLElement).dataset.item!, parseInt((e.currentTarget as HTMLElement).dataset.position!)))
     }
 
-    function getPlaylistItems(){
-        
-        let list;
-        try{
-            list = state?.playlists![state?.currentPlaylistId].items;
-        }
-        catch(e){
+    function getPlaylistFromLink(playlistInLink:string):void{
 
-            console.log('no playlist objects');
+        const tmp:Array<string> = playlistInLink.split(',');
+        const playlistTitle:string = tmp[0];
+        const playlistPosition:number = state.playlists!.length;
+        const playlistItems:Array<PlaylistItemObject> = [];
+
+        if(state.playlists![playlistPosition-1].title == playlistTitle)
+            return;
+
+        let ptr:number = 0;
+        const l = tmp.length;
+        for(let i = 1; i < l; i+=2){
+            playlistItems.push(new PlaylistItemObject(ptr, tmp[i], tmp[i+1], false))
+            ptr++;
         }
+
+        const incomingPlaylist:PlaylistObject = new PlaylistObject(playlistPosition, playlistTitle, ''+playlistPosition, playlistItems);
+        dispatch(DispatchActionFactory.addPlaylistFromLink(incomingPlaylist, playlistPosition));
+    }
+
+    useEffect(() => {
+    
+        const searchParams = new URLSearchParams(location.search);
+
+        if(searchParams.has('linkedPlaylist'))
+            getPlaylistFromLink(searchParams.get('linkedPlaylist')!);
+    });
+
+    function getPlaylistItems(){
+
+        let list;
         
+        if(state?.playlists![state?.currentPlaylistId].items !== null)
+            list = state?.playlists![state?.currentPlaylistId].items;
+
         if(!list)
             return <></>;
 

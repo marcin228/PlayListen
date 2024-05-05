@@ -4,8 +4,9 @@ import styles from "./Player.module.css"
 import Playlist from "../Playlist/Playlist";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 //import LocalStorageUtility from "../../utils/LocalStorageUtility";
-import DispatchActionFactory from "../../classes/ActionCreator";
+import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import PlaylistObject from "../../classes/PlaylistObject";
+//import { flushSync } from "react-dom";
 
 type PlayerProps = {
 
@@ -24,55 +25,7 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
 
     function changeVideo():void{
 
-        /* const list = {
-
-            title: 'CS playlist',
-            id: 0,
-            position:0,
-            items: [
-            {
-                position:0,
-                title: 'Interview with Senior JS Developer',
-                videoId: 'Uo3cL4nrGOk',
-                watched: '0'
-            },
-            {
-                position:1,
-                title: 'Containerization Strategy',
-                videoId: 'iLyBEEkm5e0',
-                watched: '0'
-            },
-            {
-                position:2,
-                title: 'What is Back Propagation',
-                videoId: 'S5AGN9XfPK4',
-                watched: '0'
-            },
-            {
-                position:3,
-                title: 'GraphQL vs REST: Which is Better for APIs?',
-                videoId: 'PTfZcN20fro',
-                watched: '0'
-            },
-            {
-                position:4,
-                title: 'MySQL vs MongoDB',
-                videoId: 'OdgZ0jr4jpM',
-                watched: '1'
-            },
-            {
-                position:5,
-                title: 'Kubernetes vs. OpenShift',
-                videoId: 'ZsOR8RkAOwI',
-                watched: '0'
-            },
-            {
-                position:6,
-                title: 'Developer Career Advice: Degree vs Bootcamp?',
-                videoId: 'tMj681M8mFo',
-                watched: '0'
-            }
-        ]};
+        /* 
 
         const list2 = {
 
@@ -98,6 +51,16 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
         LocalStorageUtility.writeJSONStringified('playlists', arr); */
 
         // LocalStorageUtility.deleteAll();
+
+       /*   console.log('TRYING TO REMOVE');
+        const woot = state.playlists!.length;
+        for(let i = 0; i < 30; i++){
+
+            console.log('playlists number', woot - i)
+            flushSync(() => {
+                dispatch(DispatchActionFactory.removePlaylist(woot - i));
+            });
+        } */
     }
 
     const YouTubePlayerOptions:object = {
