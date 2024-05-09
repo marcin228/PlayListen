@@ -72,3 +72,5 @@ import LocalStorageUtility from "../utils/LocalStorageUtility";
 
         const arr = {0: list, 1:list2};
         LocalStorageUtility.writeJSONStringified('playlists', arr);
+
+        // http://[::1]:5173/player?linkedPlaylist=bestHits00s,firstItem,32M1al-Y6Ag,2ndItem,Qatdg5bJCGE

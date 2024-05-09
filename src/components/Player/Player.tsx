@@ -6,6 +6,7 @@ import { useGlobalContext } from "../../hooks/useGlobalContext";
 //import LocalStorageUtility from "../../utils/LocalStorageUtility";
 import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import PlaylistObject from "../../classes/PlaylistObject";
+import playlistToClipboard from "../../utils/PlaylistToClipboard";
 //import { flushSync } from "react-dom";
 
 type PlayerProps = {
@@ -61,6 +62,8 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
                 dispatch(DispatchActionFactory.removePlaylist(woot - i));
             });
         } */
+
+        playlistToClipboard(state.playlists![state.currentPlaylistId].title, state.playlists![state.currentPlaylistId].items);
     }
 
     const YouTubePlayerOptions:object = {
@@ -141,7 +144,7 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
                         <div onClick={playVideo}>PLAY VIEO NOW!</div>
                     </div>
                     <div className={styles.control}>
-                        <div onClick={changeVideo}>CUSTOM TEST ACTION</div>
+                        <div onClick={changeVideo}>COPY PLAYLIST TO CLIPBOARD AS SHAREABLE LINK</div>
                     </div>
                 </div>
             </div>

@@ -24,7 +24,7 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
     function getPlaylistFromLink(playlistInLink:string):void{
 
         const tmp:Array<string> = playlistInLink.split(',');
-        const playlistTitle:string = tmp[0];
+        const playlistTitle:string = decodeURIComponent(tmp[0]);
         const playlistPosition:number = state.playlists!.length;
         const playlistItems:Array<PlaylistItemObject> = [];
 
@@ -34,7 +34,7 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
         let ptr:number = 0;
         const l = tmp.length;
         for(let i = 1; i < l; i+=2){
-            playlistItems.push(new PlaylistItemObject(ptr, tmp[i], tmp[i+1], false))
+            playlistItems.push(new PlaylistItemObject(ptr, decodeURIComponent(tmp[i]), decodeURIComponent(tmp[i+1]), false))
             ptr++;
         }
 
