@@ -5,7 +5,7 @@ export default function playlistToClipboard(title:string, items:Array<PlaylistIt
     if(items.length == 0)
         throw new Error('Playlist empty, cannot write shareable link to clipboard.');
     
-    let link:string = 'player?linkedPlaylist=' + encodeURIComponent(title);
+    let link:string = import.meta.env.BASE_URL + '/player?linkedPlaylist=' + encodeURIComponent(title);
 
     const l = items.length;
     for(let i = 0; i < l; i++){
