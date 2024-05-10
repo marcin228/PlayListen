@@ -11,8 +11,10 @@ export default defineVitestConfig({
   ...viteConfig,
   plugins: [react()],
   test: {
+    globals: true,
+    environment: 'jsdom',
     coverage: {
       reporter: ["text", "html"],
-    }
+    },
   }
 })

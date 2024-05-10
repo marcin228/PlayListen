@@ -1,7 +1,7 @@
 import PlaylistItemObject from "../classes/PlaylistItemObject";
 
 export default function playlistToClipboard(title:string, items:Array<PlaylistItemObject>):void{
-
+    
     if(items.length == 0)
         throw new Error('Playlist empty, cannot write shareable link to clipboard.');
     

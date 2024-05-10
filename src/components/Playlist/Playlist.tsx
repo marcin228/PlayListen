@@ -50,14 +50,9 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
             getPlaylistFromLink(searchParams.get('linkedPlaylist')!);
     });
 
-    function getPlaylistItems(){
-
-        let list;
+    function getPlaylistItems(list:Array<PlaylistItemObject>){
         
-        if(state?.playlists![state?.currentPlaylistId].items !== null)
-            list = state?.playlists![state?.currentPlaylistId].items;
-
-        if(!list)
+        if(!list || list.length == 0)
             return <></>;
 
         function setPlaylistItemStyle(position:number):string{
@@ -81,7 +76,7 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
 
     return (
         <div className={styles.playlist}>
-            { getPlaylistItems() }
+            { getPlaylistItems(state?.playlists![state?.currentPlaylistId].items) }
             { children }
         </div>
     );
