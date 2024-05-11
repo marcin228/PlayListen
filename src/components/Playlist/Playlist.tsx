@@ -16,6 +16,9 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
     const { state, dispatch } = useGlobalContext();
     const location = useLocation();
 
+    { console.log('LOGGIN STATE, WAS IT MOCKED CORRECTLY? =>', state)}
+            
+
     function onPlaylistItemClickHandler(e:React.MouseEvent){
 
         dispatch(DispatchActionFactory.changeVideo((e.currentTarget as HTMLElement).dataset.item!, parseInt((e.currentTarget as HTMLElement).dataset.position!)))
@@ -43,7 +46,9 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
     }
 
     useEffect(() => {
-    
+
+        console.log('EXEC USE EFFECT oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
+        console.log('LOGGING LOC.SEARCH', location.search);
         const searchParams = new URLSearchParams(location.search);
 
         if(searchParams.has('linkedPlaylist'))
