@@ -7,6 +7,7 @@ import PlaylistObject from "../../classes/PlaylistObject";
 import PlaylistAdder from "../PlaylistAdder/PlaylistAdder";
 import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 type PlaylistEditorProps = {
 
@@ -43,8 +44,9 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
     <div className={styles.playlists}>
 
         <PlaylistAdder playlist={playlist} playlistId={playlistId}></PlaylistAdder>
-
-        { items && items.map(item => <div key={ item.position } className={ styles.item }>
+        
+        <AnimatePresence>
+        { items && items.map(item => <motion.div initial={{opacity: 0}} animate={{opacity:1}} exit={{opacity: 0}} key={ item.title } className={ styles.item }>
                 <div className={`${styles.itemTitle} ${((item as PlaylistObject).id !== undefined) ? styles.itemTitleCursor : ''}`}
                  {...(((item as PlaylistObject).id !== undefined) && { onClick: onClickTitleHandler })} 
                  data-id={(item as PlaylistObject).id}>{(item as PlaylistObject).id} {item.title}</div>
@@ -58,8 +60,10 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
                 <div className={ styles.itemDown } data-direction={"down"} data-position={item.position}
                 data-playlistid={(playlistId) ? playlistId : (item as PlaylistObject).id} 
                 onClick={ onClickPositionChangeHandler }>DOWN</div>
-            </div>
+            </motion.div>
+            
         ) }
+        </AnimatePresence>
 
         { children }
     </div>

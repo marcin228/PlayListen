@@ -5,6 +5,7 @@ import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import PlaylistItemObject from "../../classes/PlaylistItemObject";
 import { useLocation } from "react-router-dom";
 import PlaylistObject from "../../classes/PlaylistObject";
+import { motion } from "framer-motion";
 
 type PlaylistProps = {
 
@@ -15,9 +16,6 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
 
     const { state, dispatch } = useGlobalContext();
     const location = useLocation();
-
-    { console.log('LOGGIN STATE, WAS IT MOCKED CORRECTLY? =>', state)}
-            
 
     function onPlaylistItemClickHandler(e:React.MouseEvent){
 
@@ -47,8 +45,6 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
 
     useEffect(() => {
 
-        console.log('EXEC USE EFFECT oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
-        console.log('LOGGING LOC.SEARCH', location.search);
         const searchParams = new URLSearchParams(location.search);
 
         if(searchParams.has('linkedPlaylist'))
@@ -68,7 +64,7 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
             return styles.item;
         }
 
-        return list.map((item:PlaylistItemObject, index:number) => <div key={item.position} className={setPlaylistItemStyle(item.position)} onClick={onPlaylistItemClickHandler} data-position={index} data-item={item.videoId}>
+        return list.map((item:PlaylistItemObject, index:number) => <motion.div key={item.position} className={setPlaylistItemStyle(item.position)} onClick={onPlaylistItemClickHandler} data-position={index} data-item={item.videoId}>
             <div className={styles.item__title}>
                 {index+1}. {item.title}
             </div>
@@ -76,7 +72,7 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
                 <div className={styles.details__item}>#{item.videoId}</div>
                 { item.watched && <div className={styles.details__item}>UNWATCHED</div> }
             </div>
-        </div>)
+        </motion.div>)
     }
 
     return (
