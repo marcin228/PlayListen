@@ -21,7 +21,7 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
     const items:Array<Positionable> = playlist.items;
     const navigate = useNavigate();
     const { dispatch } = useGlobalContext();
-    const [ scope, animate ] = useAnimate();
+    //const [ scope, animate ] = useAnimate();
     
     const onClickTitleHandler = function(e:React.MouseEvent){
 

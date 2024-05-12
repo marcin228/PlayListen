@@ -96,12 +96,11 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
 
     return (
         <div className={styles.playlist}>
+            <PlaylistToolbox></PlaylistToolbox>
             { getPlaylistItems(state?.playlists![state?.currentPlaylistId].items) }
             { children }
         </div>
     );
 };
-
-Playlist.Toolbox = PlaylistToolbox;
 
 export default Playlist;

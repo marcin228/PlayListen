@@ -4,7 +4,8 @@ import { useGlobalContext } from "../../hooks/useGlobalContext";
 import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import PlaylistObject from "../../classes/PlaylistObject";
 import playlistToClipboard from "../../utils/PlaylistToClipboard";
-import { usePlaylistContext } from "../Playlist/Playlist";
+//import { usePlaylistContext } from "../Playlist/Playlist";
+import { useNavigate } from "react-router-dom";
 
 type PlaylistToolboxProps = {
     children?:React.ReactNode,
@@ -12,35 +13,24 @@ type PlaylistToolboxProps = {
 
 const PlaylistToolbox:React.FC<PlaylistToolboxProps> = ({ children }) => {
 
-    const { playlistItemsCount } = usePlaylistContext();
-    
-    function changeVideo():void{
+    //const { playlistItemsCount } = usePlaylistContext();
+    const { state, dispatch } = useGlobalContext();
+    const navigate = useNavigate();
 
-        //const arr = [list, list2];
-        // LocalStorageUtility.writeJSONStringified('playlists', arr); */
+    function onClickEditHandler():void{
 
-        // LocalStorageUtility.deleteAll();
+        navigate('/playlists/' + state.currentPlaylistId);
+    }
 
-       /*   console.log('TRYING TO REMOVE');
-        const woot = state.playlists!.length;
-        for(let i = 0; i < 30; i++){
-
-            console.log('playlists number', woot - i)
-            flushSync(() => {
-                dispatch(DispatchActionFactory.removePlaylist(woot - i));
-            });
-        } */
+    function onClickShareHandler():void{
 
         playlistToClipboard(state.playlists![state.currentPlaylistId].title, state.playlists![state.currentPlaylistId].items);
     }
-
 
     function onChangeSelectPlaylist(e:React.ChangeEvent){
     
         dispatch(DispatchActionFactory.changePlaylist(parseInt((e.currentTarget as HTMLInputElement).value)));
     }
-
-    const { state, dispatch } = useGlobalContext();
 
     let lists:Array<PlaylistObject> = state.playlists!;
     let listsRendered = null;
@@ -61,14 +51,15 @@ const PlaylistToolbox:React.FC<PlaylistToolboxProps> = ({ children }) => {
 
     return (
     <>
-        <div>
-            {listsRendered}
-                    
+        <div className={styles.controls}>
             <div className={styles.control}>
-                <div>PLAY VIEO NOW!</div>
+                {listsRendered}
             </div>
             <div className={styles.control}>
-                <div onClick={changeVideo}>COPY PLAYLIST ({ playlistItemsCount} ITEMS) TO CLIPBOARD AS SHAREABLE LINK</div>
+                <div onClick={onClickEditHandler}>edit</div>
+            </div>
+            <div className={styles.control}>
+                <div onClick={onClickShareHandler}>share as link</div>
             </div>
         </div>
         { children }
