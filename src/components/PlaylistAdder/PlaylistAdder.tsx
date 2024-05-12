@@ -41,7 +41,7 @@ const PlaylistAdder:React.FC<PlaylistAdderProps> = ({ playlist, playlistId, chil
             <div className={styles.itemTitle}>
                 <input type="text" ref={newPlaylistTitle} placeholder="new playlist name"></input>
             </div>
-            <div className={styles.itemAdd} onClick={onClickAddHandler}>ADD</div>
+            <div className={styles.itemAdd} onClick={onClickAddHandler}>add</div>
             <div className={styles.itemEmpty} />
             <div className={styles.itemEmpty} />
         </div>}

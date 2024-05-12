@@ -3,10 +3,9 @@ import YouTube, { YouTubeEvent, YouTubePlayer } from "react-youtube";
 import styles from "./Player.module.css"
 import Playlist from "../Playlist/Playlist";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
-//import LocalStorageUtility from "../../utils/LocalStorageUtility";
 import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import PlaylistObject from "../../classes/PlaylistObject";
-import playlistToClipboard from "../../utils/PlaylistToClipboard";
+//import LocalStorageUtility from "../../utils/LocalStorageUtility";
 //import { flushSync } from "react-dom";
 
 type PlayerProps = {
@@ -22,48 +21,6 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
     function playVideo(){
     
         player.playVideo();
-    }
-
-    function changeVideo():void{
-
-        /* 
-
-        const list2 = {
-
-            title: 'short playlist',
-            id: 1,
-            position:1,
-            items: [
-            {
-                position:0,
-                title: 'Interview with Senior JS Developer',
-                videoId: 'Uo3cL4nrGOk',
-                watched: '0'
-            },
-            {
-                position:1,
-                title: 'Containerization Strategy',
-                videoId: 'iLyBEEkm5e0',
-                watched: '0'
-            },
-        ]};
-
-        const arr = [list, list2];
-        LocalStorageUtility.writeJSONStringified('playlists', arr); */
-
-        // LocalStorageUtility.deleteAll();
-
-       /*   console.log('TRYING TO REMOVE');
-        const woot = state.playlists!.length;
-        for(let i = 0; i < 30; i++){
-
-            console.log('playlists number', woot - i)
-            flushSync(() => {
-                dispatch(DispatchActionFactory.removePlaylist(woot - i));
-            });
-        } */
-
-        playlistToClipboard(state.playlists![state.currentPlaylistId].title, state.playlists![state.currentPlaylistId].items);
     }
 
     const YouTubePlayerOptions:object = {
@@ -98,32 +55,10 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
             playVideo();
     }
 
-    function onChangeSelectPlaylist(e:React.ChangeEvent){
-    
-        dispatch(DispatchActionFactory.changePlaylist(parseInt((e.currentTarget as HTMLInputElement).value)));
-    }
-
     const videoReady = (e:YouTubeEvent) => {
        
         setPlayer(() => e.target);
     };
-
-    let lists:Array<PlaylistObject> = state.playlists!;
-    let listsRendered = null;
-
-    if(lists){
-
-        if(!Array.isArray(lists))
-            lists = [];
-        
-        listsRendered = (<div className={styles.control}>
-                        <select className={styles.select} onChange={onChangeSelectPlaylist}>
-                        {
-                            lists.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)
-                        }
-                        </select>
-                    </div>);
-    }
  
     return (
     <>
@@ -137,15 +72,6 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
                 className={styles.video}
                 />
                 <div className={styles.controls}>
-
-                    {listsRendered}
-                    
-                    <div className={styles.control}>
-                        <div onClick={playVideo}>PLAY VIEO NOW!</div>
-                    </div>
-                    <div className={styles.control}>
-                        <div onClick={changeVideo}>COPY PLAYLIST TO CLIPBOARD AS SHAREABLE LINK</div>
-                    </div>
                 </div>
             </div>
             <div className={styles.playlist}>

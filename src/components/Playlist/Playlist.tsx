@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { createContext, useContext, useEffect } from "react"
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 import styles from "./Playlist.module.css"
 import DispatchActionFactory from "../../classes/DispatchActionFactory";
@@ -6,10 +6,29 @@ import PlaylistItemObject from "../../classes/PlaylistItemObject";
 import { useLocation } from "react-router-dom";
 import PlaylistObject from "../../classes/PlaylistObject";
 import { motion } from "framer-motion";
+import PlaylistToolbox from "../PlaylistToolbox/PlaylistToolbox";
+
+type PlaylistContextType = {
+
+    playlistItemsCount:number
+}
 
 type PlaylistProps = {
 
     children?:React.ReactNode,
+}
+
+const defaultPlaylistContext:PlaylistContextType = { playlistItemsCount: 0};
+const PlaylistContext = createContext(defaultPlaylistContext);
+
+export function usePlaylistContext(){
+
+    const ctx = useContext(PlaylistContext);
+
+    if(!ctx)
+        throw new Error('Playlist, compound components must be inside main component.');
+
+    return ctx;
 }
 
 const Playlist:React.FC<PlaylistProps> = ({ children }) => {
@@ -82,5 +101,7 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
         </div>
     );
 };
+
+Playlist.Toolbox = PlaylistToolbox;
 
 export default Playlist;
