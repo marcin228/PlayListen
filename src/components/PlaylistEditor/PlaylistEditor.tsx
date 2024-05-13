@@ -41,10 +41,18 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
 
         const htmlData:DOMStringMap = (e.currentTarget as HTMLElement).dataset;
 
-        if(htmlData.direction === 'up')
-            dispatch(DispatchActionFactory.moveItemUp(parseInt(htmlData.position!), parseInt(htmlData.playlistid!)));
-        else
-            dispatch(DispatchActionFactory.moveItemDown(parseInt(htmlData.position!), parseInt(htmlData.playlistid!)));
+        if(htmlData.isplaylist === 'false'){
+            if(htmlData.direction === 'up')
+                dispatch(DispatchActionFactory.moveItemUp(parseInt(htmlData.position!), parseInt(htmlData.playlistid!)));
+            else
+                dispatch(DispatchActionFactory.moveItemDown(parseInt(htmlData.position!), parseInt(htmlData.playlistid!)));
+        }
+        else{
+            if(htmlData.direction === 'up')
+                dispatch(DispatchActionFactory.movePlaylistUp(parseInt(htmlData.playlistid!)));
+            else
+                dispatch(DispatchActionFactory.movePlaylistDown(parseInt(htmlData.playlistid!)));
+        }
     }
     
     if(!Array.isArray(items))
@@ -67,12 +75,14 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
                 
                 <div data-identifier="itemUp" className={ styles.itemUp } data-direction={"up"} data-position={item.position}
                 data-playlistid={(playlistId) ? playlistId : (item as PlaylistObject).id} 
+                data-isPlaylist={ ((item as PlaylistObject).items !== undefined) }
                 onClick={ onClickPositionChangeHandler }>
                     <ReactSVG src={UpSvg} className="upSvg" />up
                 </div>
                 
                 <div data-identifier="itemDown" className={ styles.itemDown } data-direction={"down"} data-position={item.position}
                 data-playlistid={(playlistId) ? playlistId : (item as PlaylistObject).id} 
+                data-isPlaylist={ ((item as PlaylistObject).items !== undefined) }
                 onClick={ onClickPositionChangeHandler }>
                     <ReactSVG src={DownSvg} className="downSvg" />down
                 </div>

@@ -1,5 +1,5 @@
 import React, { createContext, Dispatch, useReducer } from "react";
-import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist, DispatchActionRemovePlaylist, DispatchActionMoveItemUp, DispatchActionMoveItemDown, DispatchActionAddPlaylistFromLink } from "../classes/DispatchActionFactory";
+import { DispatchAction, DispatchActionRemovePlaylistItem, DispatchActionAddPlaylistItem, DispatchActionChangePlaylist, DispatchActionChangeVideo, DispatchActionAddPlaylist, DispatchActionRemovePlaylist, DispatchActionMoveItemUp, DispatchActionMoveItemDown, DispatchActionAddPlaylistFromLink, DispatchActionMovePlaylistUp, DispatchActionMovePlaylistDown } from "../classes/DispatchActionFactory";
 import State from "../classes/State";
 import PlaylistObject from "../classes/PlaylistObject";
 import PlaylistItemObject from "../classes/PlaylistItemObject";
@@ -127,7 +127,36 @@ function reducer(state:State, action:DispatchAction):State{
 
         return newState;
     }
+    else if(action.type == 'movePlaylistUp'){
     
+        const { payload } = action as DispatchActionMovePlaylistUp
+        let playlists = structuredClone(state.playlists);
+
+        playlists![payload.playlistId].position -= 1.1;
+        playlists!.sort((a,b) => a.position - b.position);
+        playlists! = playlists!.map((item, index) => {
+        item.position = index; item.id = '' + index; return item; });
+
+        const newState:State = {...state, playlists}; 
+        LocalStorageUtility.writeJSONStringified('playlists', newState.playlists!);
+
+        return newState;
+    }
+    else if(action.type == 'movePlaylistDown'){
+    
+        const { payload } = action as DispatchActionMovePlaylistDown;
+        let playlists = structuredClone(state.playlists);
+
+        playlists![payload.playlistId].position += 1.1;
+        playlists!.sort((a,b) => a.position - b.position);
+        playlists! = playlists!.map((item, index) => {
+        item.position = index; item.id = '' + index; return item; });
+
+        const newState:State = {...state, playlists}; 
+        LocalStorageUtility.writeJSONStringified('playlists', newState.playlists!);
+
+        return newState;
+    }
 
     return state;
 }

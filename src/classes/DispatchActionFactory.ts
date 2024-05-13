@@ -82,7 +82,23 @@ export type DispatchActionRemovePlaylist = {
     }
 }
 
-export type DispatchAction = DispatchActionChangeVideo | DispatchActionChangePlaylist | DispatchActionMoveItemUp | DispatchActionMoveItemDown | DispatchActionAddPlaylistItem | DispatchActionRemovePlaylistItem | DispatchActionAddPlaylist | DispatchActionAddPlaylistFromLink | DispatchActionRemovePlaylist;
+export type DispatchActionMovePlaylistUp = {
+
+    type: 'movePlaylistUp',
+    payload: {
+        playlistId:number
+    }
+}
+
+export type DispatchActionMovePlaylistDown = {
+
+    type: 'movePlaylistDown',
+    payload: {
+        playlistId:number
+    }
+}
+
+export type DispatchAction = DispatchActionChangeVideo | DispatchActionChangePlaylist | DispatchActionMoveItemUp | DispatchActionMoveItemDown | DispatchActionAddPlaylistItem | DispatchActionRemovePlaylistItem | DispatchActionAddPlaylist | DispatchActionAddPlaylistFromLink | DispatchActionRemovePlaylist | DispatchActionMovePlaylistUp | DispatchActionMovePlaylistDown;
 
 export default class DispatchActionFactory{
 
@@ -188,5 +204,27 @@ export default class DispatchActionFactory{
                 playlistId: playlistId
             }
         } as DispatchActionRemovePlaylist
+    }
+
+    static movePlaylistUp(playlistId:number){
+    
+        return {
+
+            type: 'movePlaylistUp',
+            payload: {
+                playlistId:playlistId
+            }
+        } as DispatchActionMovePlaylistUp
+    }
+
+    static movePlaylistDown(playlistId:number){
+    
+        return {
+
+            type: 'movePlaylistDown',
+            payload: {
+                playlistId:playlistId
+            }
+        } as DispatchActionMovePlaylistDown
     }
 }

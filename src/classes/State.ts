@@ -25,7 +25,16 @@ export default class State{
             
             this.playlists = (pls as unknown as PlaylistObject[])
             this.currentPlaylistId = parseInt(this.playlists[0].id);
-            this.currentVideoYTId = this.playlists[0].items[0].videoId;
+
+            try{
+                this.currentVideoYTId = this.playlists[0].items[0].videoId;
+            }
+            catch(e){
+                console.log('State, playlists empty.')
+            }
+            finally{
+                this.currentVideoYTId = '';
+            }
             this.currentVideoPlaylistPosition = 0;
         }
     }
