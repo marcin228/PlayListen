@@ -127,6 +127,7 @@ function reducer(state:State, action:DispatchAction):State{
 
         return newState;
     }
+    
 
     return state;
 }

@@ -26,3 +26,25 @@ html, body{
     --app-color-blue: #00bfff;
     --app-color-violet: #9400d3;
 }
+
+.editSvg,
+.copySvg,
+.playlistSvg,
+.deleteSvg,
+.upSvg,
+.downSvg {
+
+    display: inline-block;
+    
+    & > * {
+        display: inline-block;
+    }
+
+    svg {
+        width: 1rem;
+        height: 1rem;
+        margin-right: 0.5rem;
+        vertical-align: middle;
+        fill: #fff;
+    }
+}

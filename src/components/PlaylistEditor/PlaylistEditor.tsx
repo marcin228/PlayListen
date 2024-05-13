@@ -7,7 +7,11 @@ import PlaylistObject from "../../classes/PlaylistObject";
 import PlaylistAdder from "../PlaylistAdder/PlaylistAdder";
 import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
-import { motion, AnimatePresence, useAnimate } from "framer-motion";
+import { motion, AnimatePresence, /* useAnimate */ } from "framer-motion";
+import DeleteSvg from '../../assets/delete.svg';
+import UpSvg from '../../assets/up.svg';
+import DownSvg from '../../assets/down.svg';
+import { ReactSVG } from "react-svg";
 
 type PlaylistEditorProps = {
 
@@ -57,15 +61,21 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
                  {...(((item as PlaylistObject).id !== undefined) && { onClick: onClickTitleHandler })} 
                  data-id={(item as PlaylistObject).id}>{(item as PlaylistObject).id} {item.title}</div>
                 
-                <div className={ styles.itemDelete } data-position={item.position} data-playlistid={playlist.root?.id} onClick={onClickRemoveHandler}>delete</div>
+                <div data-identifier="itemDelete" className={ styles.itemDelete } data-position={item.position} data-playlistid={playlist.root?.id} onClick={onClickRemoveHandler}>
+                    <ReactSVG src={DeleteSvg} className="deleteSvg" />delete
+                </div>
                 
-                <div className={ styles.itemUp } data-direction={"up"} data-position={item.position}
+                <div data-identifier="itemUp" className={ styles.itemUp } data-direction={"up"} data-position={item.position}
                 data-playlistid={(playlistId) ? playlistId : (item as PlaylistObject).id} 
-                onClick={ onClickPositionChangeHandler }>up</div>
+                onClick={ onClickPositionChangeHandler }>
+                    <ReactSVG src={UpSvg} className="upSvg" />up
+                </div>
                 
-                <div className={ styles.itemDown } data-direction={"down"} data-position={item.position}
+                <div data-identifier="itemDown" className={ styles.itemDown } data-direction={"down"} data-position={item.position}
                 data-playlistid={(playlistId) ? playlistId : (item as PlaylistObject).id} 
-                onClick={ onClickPositionChangeHandler }>down</div>
+                onClick={ onClickPositionChangeHandler }>
+                    <ReactSVG src={DownSvg} className="downSvg" />down
+                </div>
             </motion.div>
             
         ) }

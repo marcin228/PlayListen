@@ -6,6 +6,10 @@ import PlaylistObject from "../../classes/PlaylistObject";
 import playlistToClipboard from "../../utils/PlaylistToClipboard";
 //import { usePlaylistContext } from "../Playlist/Playlist";
 import { useNavigate } from "react-router-dom";
+import EditSvg from '../../assets/pencil.svg';
+import CopySvg from '../../assets/copy.svg';
+import PlaylistSvg from '../../assets/playlist.svg';
+import { ReactSVG } from "react-svg";
 
 type PlaylistToolboxProps = {
     children?:React.ReactNode,
@@ -40,26 +44,28 @@ const PlaylistToolbox:React.FC<PlaylistToolboxProps> = ({ children }) => {
         if(!Array.isArray(lists))
             lists = [];
         
-        listsRendered = (<div className={styles.control}>
-                        <select className={styles.select} onChange={onChangeSelectPlaylist}>
+        listsRendered = (<select className={styles.select} onChange={onChangeSelectPlaylist}>
                         {
-                            lists.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)
+                            lists.map((item) => <option key={item.id} value={item.id} selected={ state.currentPlaylistId === parseInt(item.id) }>{item.title}</option>)
                         }
-                        </select>
-                    </div>);
+                        </select>);
     }
 
     return (
     <>
         <div className={styles.controls}>
             <div className={styles.control}>
-                {listsRendered}
+                <ReactSVG src={PlaylistSvg} className="playlistSvg" />{listsRendered}
             </div>
             <div className={styles.control}>
-                <div onClick={onClickEditHandler}>edit</div>
+                <div onClick={onClickEditHandler}>
+                    <ReactSVG src={EditSvg} className="editSvg" />edit
+                </div>
             </div>
             <div className={styles.control}>
-                <div onClick={onClickShareHandler}>share as link</div>
+                <div onClick={onClickShareHandler}>
+                    <ReactSVG  src={CopySvg} className="copySvg" />copy as link
+                </div>
             </div>
         </div>
         { children }

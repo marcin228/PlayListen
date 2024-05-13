@@ -16,11 +16,35 @@
     padding:12px;
     align-items: center;
 
+    & svg {
+        transition: fill 0.3s ease-out, color 0.3s ease-out;
+    }
+
+    &:hover svg {
+        fill:#000;
+    }
+
     &:hover{
 
         background-color: #FFF;
         color:#000;
     }
+}
+
+.item [data-identifier="itemDelete"], 
+.item [data-identifier="itemUp"], 
+.item [data-identifier="itemDown"] {
+
+    visibility: hidden;
+    display: none;
+}
+
+.item:hover [data-identifier="itemDelete"],
+.item:hover [data-identifier="itemUp"],
+.item:hover [data-identifier="itemDown"] {
+
+    visibility: visible;
+    display: flex;
 }
 
 .itemTitle{
@@ -43,9 +67,13 @@
     flex:1;
     transition: color 0.2s ease-out;
     cursor: pointer;
-    
-    &:hover {
-        color:red;
+
+    &:hover{
+        color: red;
+    }
+
+    &:hover svg{
+        fill:red;
     }
 }
 
@@ -61,6 +89,10 @@
     cursor: pointer;
     transition: color 0.2s ease-out;
 
+    &:hover svg {
+        fill: var(--app-color-blue);
+    }
+
     &:hover {
 
         color: var(--app-color-blue);
@@ -71,6 +103,10 @@
     flex:1;
     cursor: pointer;
     transition: color 0.2s ease-out;
+
+    &:hover svg {
+        fill: var(--app-color-blue);
+    }
 
     &:hover{
 
