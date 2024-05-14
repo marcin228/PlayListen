@@ -83,7 +83,8 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
             return styles.item;
         }
 
-        return list.map((item:PlaylistItemObject, index:number) => <motion.div key={item.position} className={setPlaylistItemStyle(item.position)} onClick={onPlaylistItemClickHandler} data-position={index} data-item={item.videoId}>
+        return list.map((item:PlaylistItemObject, index:number) => <motion.div key={item.position+''+item.videoId} className={setPlaylistItemStyle(item.position)} onClick={onPlaylistItemClickHandler} data-position={index} data-item={item.videoId} 
+        variants={{hidden: {opacity: 0}, visible: {opacity: 1}}}>
             <div className={styles.item__title}>
                 {index+1}. {item.title}
             </div>
@@ -95,11 +96,13 @@ const Playlist:React.FC<PlaylistProps> = ({ children }) => {
     }
 
     return (
-        <div className={styles.playlist}>
+        <motion.div className={styles.playlist} key={state.currentPlaylistId}
+        variants={{hidden: {opacity:0}, visible: {opacity:1, transition: { staggerChildren: 0.24 }}}} 
+        initial="hidden" animate="visible">
             <PlaylistToolbox></PlaylistToolbox>
             { getPlaylistItems(state?.playlists![state?.currentPlaylistId].items) }
             { children }
-        </div>
+        </motion.div>
     );
 };
 

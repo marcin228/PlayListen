@@ -32,7 +32,8 @@ html, body{
 .playlistSvg,
 .deleteSvg,
 .upSvg,
-.downSvg {
+.downSvg,
+.addSvg {
 
     display: inline-block;
     

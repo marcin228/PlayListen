@@ -60,11 +60,10 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
 
     return (
     
-    <motion.div layout className={styles.playlists}>
-        <AnimatePresence>
+    <motion.div className={styles.playlists}>
         <PlaylistAdder playlist={playlist} playlistId={playlistId} key="playlistAdder"></PlaylistAdder>
-        
-        { items && items.map(item => <motion.div initial={{opacity: 0}} animate={{opacity:1}} exit={{opacity: 0}} key={ item.title } className={ styles.item }>
+        <AnimatePresence>
+        { items && items.map(item => <motion.div initial={{opacity: 0}} animate={{opacity:1}} key={ item.title } className={ styles.item }>
                 <div className={`${styles.itemTitle} ${((item as PlaylistObject).id !== undefined) ? styles.itemTitleCursor : ''}`}
                  {...(((item as PlaylistObject).id !== undefined) && { onClick: onClickTitleHandler })} 
                  data-id={(item as PlaylistObject).id}>{(item as PlaylistObject).id} {item.title}</div>

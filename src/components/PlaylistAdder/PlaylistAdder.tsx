@@ -3,6 +3,8 @@ import styles from "./PlaylistAdder.module.css"
 import { PlaylistEditable } from "../Playlists/Playlists";
 import PlaylistItemObject from "../../classes/PlaylistItemObject";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
+import { ReactSVG } from "react-svg";
+import AddSvg from '../../assets/add.svg';
 
 type PlaylistAdderProps = {
 
@@ -41,7 +43,10 @@ const PlaylistAdder:React.FC<PlaylistAdderProps> = ({ playlist, playlistId, chil
             <div className={styles.itemTitle}>
                 <input type="text" ref={newPlaylistTitle} placeholder="new playlist name"></input>
             </div>
-            <div className={styles.itemAdd} onClick={onClickAddHandler}>add</div>
+            <div className={styles.itemAdd} onClick={onClickAddHandler}>
+                <ReactSVG  src={AddSvg} className="addSvg" />
+                add
+            </div>
             <div className={styles.itemEmpty} />
             <div className={styles.itemEmpty} />
         </div>}
@@ -51,7 +56,10 @@ const PlaylistAdder:React.FC<PlaylistAdderProps> = ({ playlist, playlistId, chil
                 <input type="text" ref={newPlaylistItemTitle} placeholder="playlist entry title"></input>
                 <input type="text" ref={newPlaylistItemVideoId} placeholder="youtube video id"></input>
             </div>
-            <div className={styles.itemAdd} onClick={onClickAddHandler}>ADD</div>
+            <div className={styles.itemAdd} onClick={onClickAddHandler}>
+                <ReactSVG  src={AddSvg} className="addSvg" />
+                add
+            </div>
             <div className={styles.itemEmpty} />
             <div className={styles.itemEmpty} />
         </div>}
