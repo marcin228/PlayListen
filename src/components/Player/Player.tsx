@@ -5,6 +5,7 @@ import Playlist from "../Playlist/Playlist";
 import { useGlobalContext } from "../../hooks/useGlobalContext";
 import DispatchActionFactory from "../../classes/DispatchActionFactory";
 import PlaylistObject from "../../classes/PlaylistObject";
+import Ads from "../Ads/Ads";
 //import LocalStorageUtility from "../../utils/LocalStorageUtility";
 //import { flushSync } from "react-dom";
 
@@ -71,7 +72,8 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
                 onStateChange={onStateChangeHandler}
                 className={styles.video}
                 />
-                <div className={styles.controls}>
+                <div className={styles.ads}>
+                    <Ads />
                 </div>
             </div>
             <div className={styles.playlist}>
