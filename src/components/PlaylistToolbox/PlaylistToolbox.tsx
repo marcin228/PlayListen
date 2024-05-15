@@ -64,7 +64,7 @@ const PlaylistToolbox:React.FC<PlaylistToolboxProps> = ({ children }) => {
             </div>
             <div className={styles.control}>
                 <div onClick={onClickShareHandler}>
-                    <ReactSVG  src={CopySvg} className="copySvg" />copy as link
+                    <ReactSVG  src={CopySvg} className="copySvg" />copy as a link
                 </div>
             </div>
         </div>
