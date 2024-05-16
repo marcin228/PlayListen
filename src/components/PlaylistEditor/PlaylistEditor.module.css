@@ -31,6 +31,26 @@
     }
 }
 
+@keyframes itemAddedAnimation {
+
+    0% {
+        background-color: transparent;
+    }
+
+    25% {
+        background-color: greenyellow;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+.item___added {
+
+    animation: itemAddedAnimation 1s;
+}
+
 .item [data-identifier="itemDelete"], 
 .item [data-identifier="itemUp"], 
 .item [data-identifier="itemDown"] {

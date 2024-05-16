@@ -12,6 +12,26 @@
     }
 }
 
+@keyframes itemAddedAnimation {
+
+    0% {
+        background-color: transparent;
+    }
+
+    50% {
+        background-color: greenyellow;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+.item___added{
+
+    animation: itemAddedAnimation 0.6s ease-in-out;
+}
+
 .itemActive{
 
     border-left: 20px solid dodgerblue;
