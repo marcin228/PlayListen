@@ -1,3 +1,9 @@
+.controlsPosition {
+
+    position: sticky;
+    top: 0;
+}
+
 .select {
 
     padding: 10px 0;
@@ -64,4 +70,21 @@
     margin-right:0.5rem;
     vertical-align: middle;
     filter: invert(100%) sepia(0%) saturate(2%) hue-rotate(293deg) brightness(105%) contrast(101%);
+}
+
+.copied{
+
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    position: absolute;
+    top:0;
+    left:0;
+    color:var(--app-color-blue);
+    font-size:3rem;
+}
+
+.copiedContainer{
+
+    position:relative;
 }
