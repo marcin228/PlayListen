@@ -59,40 +59,67 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
 
     const getItemStyles = function(itemPosition:number):string{
 
-        if(playlistId == undefined)
-            return styles.item;
+        let isPlaylist:boolean = false;
 
-        const addingToPlaylistWithId:number = parseInt(playlistId);
+        if((playlist as unknown as PlaylistObject).items !== undefined)
+            isPlaylist = true;
 
-        if(itemPosition !== state?.playlists![addingToPlaylistWithId].items.length-1)
-            return styles.item;
+        //if(playlistId == undefined)
+        //    return styles.item;
 
-        if(lastPlaylistId.current == parseInt(playlistId!))
-            if(lastPlaylistLength.current == state?.playlists![addingToPlaylistWithId].items.length)
+        if(!isPlaylist){
+
+            const addingToPlaylistWithId:number = parseInt(playlistId!);
+
+            if(itemPosition !== state?.playlists![addingToPlaylistWithId].items.length-1)
                 return styles.item;
 
-        if(lastPlaylistId.current !== null && lastPlaylistLength.current !== null){
+            if(lastPlaylistId.current == parseInt(playlistId!))
+                if(lastPlaylistLength.current == state?.playlists![addingToPlaylistWithId].items.length)
+                    return styles.item;
 
-            if(lastPlaylistId.current == addingToPlaylistWithId){
-                if(lastPlaylistLength.current + 1 == state?.playlists![addingToPlaylistWithId].items.length){
-                    
-                    lastPlaylistLength.current = state?.playlists![addingToPlaylistWithId].items.length;
-                    return `${styles.item} ${styles.item___added}`;
+            if(lastPlaylistId.current !== null && lastPlaylistLength.current !== null){
+
+                if(lastPlaylistId.current == addingToPlaylistWithId){
+                    if(lastPlaylistLength.current + 1 == state?.playlists![addingToPlaylistWithId].items.length){
+                        
+                        lastPlaylistLength.current = state?.playlists![addingToPlaylistWithId].items.length;
+                        return `${styles.item} ${styles.item___added}`;
+                    }
+                    else{
+                        lastPlaylistLength.current = state?.playlists![addingToPlaylistWithId].items.length;
+                    }
                 }
                 else{
+                    lastPlaylistId.current = addingToPlaylistWithId;
                     lastPlaylistLength.current = state?.playlists![addingToPlaylistWithId].items.length;
                 }
             }
             else{
+
                 lastPlaylistId.current = addingToPlaylistWithId;
                 lastPlaylistLength.current = state?.playlists![addingToPlaylistWithId].items.length;
             }
         }
         else{
+        
+            if(lastPlaylistLength.current == state?.playlists!.length)
+                return styles.item;
 
-            console.log('vars unset')
-            lastPlaylistId.current = addingToPlaylistWithId;
-            lastPlaylistLength.current = state?.playlists![addingToPlaylistWithId].items.length;
+            if(lastPlaylistLength.current !== null){
+
+                if(lastPlaylistLength.current + 1 == state?.playlists!.length){
+                        
+                    lastPlaylistLength.current = state?.playlists!.length;
+                    return `${styles.item} ${styles.item___added}`;
+                }
+                else{
+                    lastPlaylistLength.current = state?.playlists!.length;
+                }
+            }
+            else{
+                lastPlaylistLength.current = state?.playlists!.length;
+            }
         }
 
         return styles.item;
