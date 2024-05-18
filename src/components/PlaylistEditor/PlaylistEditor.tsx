@@ -61,13 +61,14 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
 
         let isPlaylist:boolean = false;
 
-        if((playlist as unknown as PlaylistObject).items !== undefined)
-            isPlaylist = true;
-
-        //if(playlistId == undefined)
-        //    return styles.item;
+        if((playlist as unknown as PlaylistObject).items[0])
+            if(((playlist as unknown as PlaylistObject).items[0] as unknown as PlaylistObject).items !== undefined)
+                isPlaylist = true;
 
         if(!isPlaylist){
+
+            if(playlistId == undefined)
+                return styles.item;
 
             const addingToPlaylistWithId:number = parseInt(playlistId!);
 
@@ -103,6 +104,9 @@ const PlaylistEditor:React.FC<PlaylistEditorProps> = ({ playlist, playlistId, ch
         }
         else{
         
+            if(itemPosition !== state?.playlists!.length-1)
+                return styles.item;
+
             if(lastPlaylistLength.current == state?.playlists!.length)
                 return styles.item;
 
