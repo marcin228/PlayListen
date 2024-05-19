@@ -29,7 +29,7 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
         width: "100%",
         height: "100%",
         borderRadius: "0",
-        playerVars: {},
+        playerVars: {autoplay: 1}
     };
 
     const onStateChangeHandler = function(e:YouTubeEvent):void{
@@ -42,13 +42,11 @@ const Player:React.FC<PlayerProps> = ({ children }) => {
 
                 if(state.settings.playlistLoop){
                     dispatch(DispatchActionFactory.changeVideo(currentPlaylist.items.find((item) => item.position === 0)!.videoId, 0));
-                    playVideo();
                 }
             }
             else if(state.currentVideoPlaylistPosition < currentPlaylist.items.length){
 
                 dispatch(DispatchActionFactory.changeVideo(currentPlaylist.items.find((item) => item.position == (state.currentVideoPlaylistPosition! + 1))!.videoId, state.currentVideoPlaylistPosition! + 1));
-                playVideo();
             }
         }
 

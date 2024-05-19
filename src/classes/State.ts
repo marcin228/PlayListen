@@ -33,7 +33,7 @@ export default class State{
                 console.log('State, playlists empty.')
             }
             finally{
-                this.currentVideoYTId = '';
+                this.currentVideoYTId = 'jNQXAC9IVRw';
             }
             this.currentVideoPlaylistPosition = 0;
         }

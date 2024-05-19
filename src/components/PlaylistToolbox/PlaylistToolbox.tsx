@@ -48,9 +48,10 @@ const PlaylistToolbox:React.FC<PlaylistToolboxProps> = ({ children }) => {
         if(!Array.isArray(lists))
             lists = [];
         
-        listsRendered = (<select className={styles.select} onChange={onChangeSelectPlaylist}>
+        listsRendered = (<select className={styles.select} defaultValue={ state.currentPlaylistId } 
+        onChange={onChangeSelectPlaylist}>
                         {
-                            lists.map((item) => <option key={item.id} value={item.id} selected={ state.currentPlaylistId === parseInt(item.id) }>{item.title}</option>)
+                            lists.map((item) => <option key={item.id} value={item.id} >{item.title}</option>)
                         }
                         </select>);
     }
