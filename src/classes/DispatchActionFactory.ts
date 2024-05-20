@@ -1,5 +1,3 @@
-/** @todo change payload to always be an object for consistency and predictability */
-
 import PlaylistItemObject from "./PlaylistItemObject";
 import PlaylistObject from "./PlaylistObject";
 
@@ -17,7 +15,9 @@ export type DispatchActionChangeVideo = {
 export type DispatchActionChangePlaylist = {
 
     type: 'changePlaylist',
-    payload:number
+    payload: {
+        playlistId:number
+    }
 }
 
 export type DispatchActionMoveItemUp = {
@@ -119,7 +119,9 @@ export default class DispatchActionFactory{
         return {
         
             type: 'changePlaylist',
-            payload: playlistId
+            payload: {
+                playlistId:playlistId
+            }
         } as DispatchActionChangePlaylist;
     }
 

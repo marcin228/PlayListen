@@ -28,7 +28,7 @@ function reducer(state:State, action:DispatchAction):State{
 
         const { payload } = action as DispatchActionChangePlaylist;
         
-        return { ...state, currentVideoPlaylistPosition:0, currentVideoYTId: state.playlists![payload].items[0].videoId ,currentPlaylistId: payload};
+        return { ...state, currentVideoPlaylistPosition:0, currentVideoYTId: state.playlists![payload.playlistId].items[0].videoId ,currentPlaylistId: payload.playlistId};
     }
     else if(action.type == 'moveItemUp'){
     
