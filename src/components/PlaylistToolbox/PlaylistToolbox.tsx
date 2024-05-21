@@ -11,6 +11,7 @@ import CopySvg from '../../assets/copy.svg';
 import PlaylistSvg from '../../assets/playlist.svg';
 import { ReactSVG } from "react-svg";
 import { useAnimate } from "framer-motion";
+import PlaylistToolboxButton from "../PlaylistToolboxButton/PlaylistToolboxButton";
 
 type PlaylistToolboxProps = {
     children?:React.ReactNode,
@@ -60,12 +61,10 @@ const PlaylistToolbox:React.FC<PlaylistToolboxProps> = ({ children }) => {
     <>
         <div className={`${styles.controls} ${styles.controlsPosition}`}>
             <div className={styles.control}>
-                <ReactSVG src={PlaylistSvg} className="playlistSvg" />{listsRendered}
+                <PlaylistToolboxButton className="playlistSvg" src={PlaylistSvg}>{listsRendered}</PlaylistToolboxButton>
             </div>
             <div className={styles.control}>
-                <div onClick={onClickEditHandler}>
-                    <ReactSVG src={EditSvg} className="editSvg" />edit
-                </div>
+                <PlaylistToolboxButton className="editSvg" src={EditSvg} onClick={onClickEditHandler}>edit</PlaylistToolboxButton>
             </div>
             <div className={`${styles.control}`}>
                 <div className={styles.copiedContainer}>
